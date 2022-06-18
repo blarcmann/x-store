@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
+var bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
-
+const authRoute = require("./routes/auth");
 const cors = require("cors");
-
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -15,7 +15,11 @@ mongoose
   });
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
+app.use("/api/auth", authRoute);
+
 
 app.listen(process.env.PORT || 5001, () => {
   console.log("Backend server is running!");
