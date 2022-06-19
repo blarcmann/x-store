@@ -43,7 +43,9 @@ router.put("/:id", verifyAdminToken, async (req, res) => {
             res.status(500).json(error);
         }
     } else {
-
+        res.status(403).json({
+            message: 'product not found'
+        });
     }
 });
 

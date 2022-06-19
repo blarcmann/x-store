@@ -6,7 +6,6 @@ const {
 
 const router = require("express").Router();
 
-
 // update account details
 router.put("/:id", verifyAuthorizeToken, async (req, res) => {
     if (req.body.password) {
