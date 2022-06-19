@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
+const productRoute = require("./routes/product");
 const cors = require("cors");
 
 mongoose
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
+app.use("/api/product", productRoute);
 
 
 app.listen(process.env.PORT || 5001, () => {
