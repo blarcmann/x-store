@@ -1,6 +1,6 @@
 import { Grid, Container, Typography } from '@mui/material';
 import Page from '../components/Page';
-import {AppWidgetSummary} from '../sections/dashboard';
+import AppWidgetSummary from '../sections/dashboard/AppWidgetSummary';
 
 
 export default function Dashboard() {
@@ -13,7 +13,7 @@ export default function Dashboard() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary color="secondary" title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
