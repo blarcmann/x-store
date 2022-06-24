@@ -1,5 +1,6 @@
 import { useRoutes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
+import User from "./pages/User";
 import DashboardLayout from './sections/dashboard';
 
 const Main = () => {
@@ -9,6 +10,7 @@ const Main = () => {
       element: <DashboardLayout />,
       children: [
         { path: 'app', element: <Dashboard /> },
+        { path: 'user', element: <User /> },
       ],
     },
     // { path: '*', element: <Navigate to="/404" replace /> },

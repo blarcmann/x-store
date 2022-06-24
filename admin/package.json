@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.3.0",
     "@iconify/react": "^3.2.2"
   }
 }
