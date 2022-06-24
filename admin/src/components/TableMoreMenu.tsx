@@ -5,7 +5,7 @@ import Icone from './Icon';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu() {
+export default function TableMoreMenu() {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 

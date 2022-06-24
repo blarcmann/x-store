@@ -20,8 +20,8 @@ import { faker } from "@faker-js/faker";
 import Page from "../components/Page";
 import Icone from "../components/Icon";
 import SearchNotFound from "../components/SearchNotFound";
-import UserMoreMenu from "../components/UserMoreMenu";
-import UserListHead from '../components/UserListhead';
+import TableMoreMenu from "../components/TableMoreMenu";
+import TableHeading from '../components/TableHeading';
 import { getRandomInt } from "../utils/helpers";
 
 const TABLE_HEAD = [
@@ -44,9 +44,9 @@ const roles = [
   "Front End Developer",
   "Full Stack Developer",
 ];
-const users = [...Array(30)].map((_, index) => ({
+const users = [...Array(24)].map((_, index) => ({
   id: faker.datatype.uuid(),
-  avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
+  avatarUrl: `/static/`,
   name: faker.name.findName(),
   company: faker.company.companyName(),
   isVerified: faker.datatype.boolean(),
@@ -132,7 +132,7 @@ export default function User() {
           <Box>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <UserListHead
+                <TableHeading
                   headLabel={TABLE_HEAD}
                   rowCount={users.length}
                   numSelected={selected.length}
@@ -180,7 +180,7 @@ export default function User() {
                           </TableCell>
 
                           <TableCell align="right">
-                            <UserMoreMenu />
+                            <TableMoreMenu />
                           </TableCell>
                         </TableRow>
                       );

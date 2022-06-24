@@ -15,7 +15,7 @@ const visuallyHidden = {
   clip: 'rect(0 0 0 0)',
 };
 
-UserListHead.propTypes = {
+TableHeading.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']),
   orderBy: PropTypes.string,
   rowCount: PropTypes.number,
@@ -25,7 +25,7 @@ UserListHead.propTypes = {
   onSelectAllClick: PropTypes.func,
 };
 
-export default function UserListHead({
+export default function TableHeading({
   order,
   orderBy,
   rowCount,
