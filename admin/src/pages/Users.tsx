@@ -19,9 +19,7 @@ import {
 import { faker } from "@faker-js/faker";
 import Page from "../components/Page";
 import Icone from "../components/Icon";
-import SearchNotFound from "../components/SearchNotFound";
-import TableMoreMenu from "../components/TableMoreMenu";
-import TableHeading from '../components/TableHeading';
+import {SearchNotFound, MoreMenu, Heading} from '../components/table';
 import { getRandomInt } from "../utils/helpers";
 
 const TABLE_HEAD = [
@@ -132,7 +130,7 @@ export default function User() {
           <Box>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <TableHeading
+                <Heading
                   headLabel={TABLE_HEAD}
                   rowCount={users.length}
                   numSelected={selected.length}
@@ -180,7 +178,7 @@ export default function User() {
                           </TableCell>
 
                           <TableCell align="right">
-                            <TableMoreMenu />
+                            <MoreMenu />
                           </TableCell>
                         </TableRow>
                       );

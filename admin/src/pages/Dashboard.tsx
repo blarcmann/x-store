@@ -1,5 +1,5 @@
 import { Grid, Container, Typography } from '@mui/material';
-import Page from '../components/Page';
+import { Page } from '../components';
 import AppWidgetSummary from '../sections/dashboard/AppWidgetSummary';
 
 

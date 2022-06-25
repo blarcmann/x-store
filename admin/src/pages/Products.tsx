@@ -17,20 +17,15 @@ import {
   Box,
 } from "@mui/material";
 import { faker } from "@faker-js/faker";
-import Page from "../components/Page";
-import Icone from "../components/Icon";
-import SearchNotFound from "../components/SearchNotFound";
-import TableMoreMenu from "../components/TableMoreMenu";
-import TableHeading from "../components/TableHeading";
-import ColorPreview from '../components/ColorPreview';
+import { SearchNotFound, MoreMenu, Heading } from "../components/table";
+import { Page, Icone, ColorPreview, Label } from "../components";
 import { getRandomInt } from "../utils/helpers";
 
 const TABLE_HEAD = [
   { id: "name", label: "Name", alignRight: false },
-  // { id: "cover", label: "Cover", alignRight: false },
   { id: "price", label: "Price", alignRight: false },
-  // { id: "priceSale", label: "Price Sale", alignRight: false },
   { id: "colors", label: "Colors", alignRight: false },
+  { id: "status", label: "Status", alignRight: false },
   { id: "" },
 ];
 
@@ -61,17 +56,17 @@ const PRODUCT_NAME = [
   "Nike React Infinity Run Flyknit A.I.R. Chaz Bear",
 ];
 const PRODUCT_COLOR = [
-  "#00AB55",
+  "#F0AB55",
   "#000000",
-  "#FFFFFF",
+  "#FFDDFF",
   "#FFC0CB",
-  "#FF4842",
-  "#1890FF",
-  "#94D82D",
-  "#FFC107",
+  "#FF4D42",
+  "#18D0FF",
+  "#94D8DD",
+  "#FDC107",
 ];
 
-const statuses = ["sale", "new", "rollback", ""];
+const statuses = ["sale", "new", "rollback", "sold out"];
 
 const products = [...Array(24)].map((_, index) => {
   const setIndex = index + 1;
@@ -169,7 +164,7 @@ export default function Products() {
           <Box>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <TableHeading
+                <Heading
                   headLabel={TABLE_HEAD}
                   rowCount={products.length}
                   numSelected={selected.length}
@@ -179,7 +174,7 @@ export default function Products() {
                   {products
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row: any) => {
-                      const { id, name, cover, price, priceSale, colors } = row;
+                      const { id, name, cover, price, colors, status } = row;
                       const isItemSelected = selected.indexOf(name) !== -1;
 
                       return (
@@ -213,9 +208,22 @@ export default function Products() {
                           <TableCell align="left">
                             <ColorPreview colors={colors} />
                           </TableCell>
-
+                          <TableCell>
+                            <Label
+                              variant="ghost"
+                              color={
+                                status === "in stock" || status === 'new'
+                                  ? "success"
+                                  : status === "sold out"
+                                  ? "error"
+                                  : "primary"
+                              }
+                            >
+                              {status.toUpperCase()}
+                            </Label>
+                          </TableCell>
                           <TableCell align="right">
-                            <TableMoreMenu />
+                            <MoreMenu />
                           </TableCell>
                         </TableRow>
                       );
