@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-// material
 import { styled } from '@mui/material/styles';
-//
-// import DashboardNavbar from './DashboardNavbar';
+import { Navbar } from '../../components/navigation';
 import Sidebar from './Sidebar';
 
-// ----------------------------------------------------------------------
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -37,7 +34,7 @@ export default function DashboardLayout() {
 
   return (
     <RootStyle>
-      {/* <DashboardNavbar onOpenSidebar={() => setOpen(true)} /> */}
+      <Navbar onOpenSidebar={() => setOpen(true)} />
       <Sidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
         <Outlet />
