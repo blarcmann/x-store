@@ -1,10 +1,10 @@
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import Products from "./pages/Products";
 import Users from "./pages/Users";
 import DashboardLayout from "./sections/dashboard";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
+import { Products, Product } from "./pages/product";
 
 const Main = () => {
   return useRoutes([
@@ -12,14 +12,15 @@ const Main = () => {
       path: "/dashboard",
       element: <DashboardLayout />,
       children: [
-        { path: "app", element: <Dashboard /> },
+        { path: "", element: <Dashboard /> },
         { path: "user", element: <Users /> },
         { path: "products", element: <Products /> },
+        { path: "products/:id", element: <Product /> },
       ],
     },
     { path: "/register", element: <Register /> },
     { path: "/login", element: <Login /> },
-    // { path: '*', element: <Navigate to="/404" replace /> },
+    { path: "/", element: <Navigate to="/dashboard" replace /> },
   ]);
 };
 export default Main;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link, Link as RouterLink } from "react-router-dom";
 import {
   Card,
   Table,
@@ -17,9 +17,9 @@ import {
   Box,
 } from "@mui/material";
 import { faker } from "@faker-js/faker";
-import { SearchNotFound, MoreMenu, Heading } from "../components/table";
-import { Page, Icone, ColorPreview, Label } from "../components";
-import { getRandomInt } from "../utils/helpers";
+import { SearchNotFound, MoreMenu, Heading } from "../../components/table";
+import { Page, Icone, ColorPreview, Label } from "../../components";
+import { getRandomInt } from "../../utils/helpers";
 
 const TABLE_HEAD = [
   { id: "name", label: "Name", alignRight: false },
@@ -199,9 +199,11 @@ export default function Products() {
                               spacing={2}
                             >
                               <Avatar alt={name} src={cover} />
-                              <Typography variant="subtitle2" noWrap>
-                                {name}
-                              </Typography>
+                              <Link to="oeirtunfdksjkdnd">
+                                <Typography variant="subtitle2" noWrap>
+                                  {name}
+                                </Typography>
+                              </Link>
                             </Stack>
                           </TableCell>
                           <TableCell align="left">{price}</TableCell>
@@ -212,7 +214,7 @@ export default function Products() {
                             <Label
                               variant="ghost"
                               color={
-                                status === "in stock" || status === 'new'
+                                status === "in stock" || status === "new"
                                   ? "success"
                                   : status === "sold out"
                                   ? "error"
