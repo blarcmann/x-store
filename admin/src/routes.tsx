@@ -1,6 +1,7 @@
 import { Navigate, useRoutes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Customers from "./pages/Customers";
+import Orders from './pages/Orders';
 import DashboardLayout from "./sections/dashboard";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
@@ -15,6 +16,7 @@ const Main = () => {
       children: [
         { path: "app", element: <Dashboard /> },
         { path: "customers", element: <Customers /> },
+        { path: "orders", element: <Orders /> },
         { path: "account", element: <Account /> },
         { path: "products", element: <Products /> },
         { path: "products/:id", element: <Product /> },

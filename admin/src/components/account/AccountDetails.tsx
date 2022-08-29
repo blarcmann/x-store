@@ -52,6 +52,7 @@ export const AccountDetails = (props: JSX.IntrinsicAttributes & ClassAttributes<
         <CardHeader
           subheader="The information can be edited"
           title="Profile"
+          style={{paddingBottom: '24px'}}
         />
         <Divider />
         <CardContent>

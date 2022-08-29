@@ -95,7 +95,7 @@ export default function Products() {
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState<any>([]);
   const [filterName] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleSelectAllClick = (event: any) => {
     if (event.target.checked) {
