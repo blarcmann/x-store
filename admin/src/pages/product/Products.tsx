@@ -147,7 +147,7 @@ export default function Products() {
           justifyContent="space-between"
           mb={5}
         >
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h2" gutterBottom>
             Products
           </Typography>
           <Button

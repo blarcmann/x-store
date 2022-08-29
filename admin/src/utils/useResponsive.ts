@@ -1,8 +1,5 @@
-// @mui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
-// ----------------------------------------------------------------------
 
 export default function useResponsive(query?: any, key?: any, start?: any, end?: any) {
   const theme = useTheme();

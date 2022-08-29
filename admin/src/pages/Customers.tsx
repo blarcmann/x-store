@@ -42,7 +42,7 @@ const roles = [
   "Front End Developer",
   "Full Stack Developer",
 ];
-const users = [...Array(24)].map((_, index) => ({
+const customers = [...Array(24)].map((_, index) => ({
   id: faker.datatype.uuid(),
   avatarUrl: `/static/`,
   name: faker.name.findName(),
@@ -51,7 +51,7 @@ const users = [...Array(24)].map((_, index) => ({
   role: roles[getRandomInt(10)],
 }));
 
-export default function User() {
+export default function Customers() {
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState<any>([]);
   const [filterName] = useState("");
@@ -59,7 +59,7 @@ export default function User() {
 
   const handleSelectAllClick = (event: any) => {
     if (event.target.checked) {
-      const newSelecteds = users.map((n: any) => n.name);
+      const newSelecteds = customers.map((n: any) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -94,12 +94,12 @@ export default function User() {
   };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - customers.length) : 0;
 
-  const isUserNotFound = users.length === 0;
+  const isUserNotFound = customers.length === 0;
 
   return (
-    <Page title="User">
+    <Page title="Customers">
       <Container>
         <Stack
           direction="row"
@@ -107,8 +107,8 @@ export default function User() {
           justifyContent="space-between"
           mb={5}
         >
-          <Typography variant="h4" gutterBottom>
-            User
+          <Typography variant="h2" gutterBottom>
+            Customers
           </Typography>
           <Button
             variant="contained"
@@ -116,7 +116,7 @@ export default function User() {
             to="#"
             startIcon={<Icone icon="eva:plus-fill" />}
           >
-            New User
+            New Customer
           </Button>
         </Stack>
 
@@ -132,12 +132,12 @@ export default function User() {
               <Table>
                 <Heading
                   headLabel={TABLE_HEAD}
-                  rowCount={users.length}
+                  rowCount={customers.length}
                   numSelected={selected.length}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {users
+                  {customers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                       const { id, name, role, company, avatarUrl, isVerified } =
@@ -206,7 +206,7 @@ export default function User() {
           <TablePagination
             rowsPerPageOptions={[10, 20, 30]}
             component="div"
-            count={users.length}
+            count={customers.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

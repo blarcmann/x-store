@@ -12,29 +12,19 @@ const navConfig = [
     icon: getIcon('eva:pie-chart-2-fill'),
   },
   {
-    title: 'user',
-    path: '/dashboard/user',
+    title: 'customers',
+    path: '/dashboard/customers',
     icon: getIcon('eva:people-fill'),
   },
   {
-    title: 'product',
+    title: 'products',
     path: '/dashboard/products',
     icon: getIcon('eva:shopping-bag-fill'),
   },
   {
-    title: 'blog',
-    path: '/dashboard/blog',
+    title: 'Account',
+    path: '/dashboard/account',
     icon: getIcon('eva:file-text-fill'),
-  },
-  {
-    title: 'login',
-    path: '/login',
-    icon: getIcon('eva:lock-fill'),
-  },
-  {
-    title: 'register',
-    path: '/register',
-    icon: getIcon('eva:person-add-fill'),
   },
   {
     title: 'Not found',

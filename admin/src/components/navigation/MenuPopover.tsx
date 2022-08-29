@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { Popover } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 
@@ -19,11 +18,11 @@ const ArrowStyle = styled("span")(({ theme }) => ({
   },
 }));
 
-interface MenuProps {
-  children: ReactNode;
-  sx?: any;
-  open: boolean;
-}
+// interface MenuProps {
+//   children: ReactNode;
+//   sx?: any;
+//   open: boolean;
+// }
 
 export default function MenuPopover({
   children,
