@@ -153,7 +153,7 @@ export default function Products() {
           <Button
             variant="contained"
             component={RouterLink}
-            to="#"
+            to="edit/22"
             startIcon={<Icone icon="eva:plus-fill" />}
           >
             New Product

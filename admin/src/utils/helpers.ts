@@ -1,4 +1,4 @@
-// import numeral from 'numeral';
+import numeral from 'numeral';
 
 export function formatAmount(num: string | number) {
   const n = String(num),
@@ -35,4 +35,9 @@ export function formatDate(date: any) {
     day = '0' + day;
 
   return [month, day, year].join('-');
+}
+
+
+export function fData(number: any) {
+  return numeral(number).format('0.0 b');
 }

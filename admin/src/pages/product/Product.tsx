@@ -66,7 +66,7 @@ export default function Product() {
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
-        <Typography variant="h4" sx={{ mb: 5 }}>
+        <Typography variant="h2" sx={{ mb: 5 }}>
           Product Details
         </Typography>
         <Typography variant="overline" display="block" sx={{ mb: 5 }}>

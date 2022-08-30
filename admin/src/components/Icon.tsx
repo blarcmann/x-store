@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 
 
 interface IconProps {
-  icon?: any;
+  icon: any;
   sx?: object;
   width?: number;
   height?: number;

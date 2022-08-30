@@ -21,9 +21,9 @@ import navConfig from "./NavConfig";
 
 // ----------------------------------------------------------------------
 const account = {
-  displayName: "Jaydon Frankie",
-  email: "demo@minimals.cc",
-  role: "Upper Cannoli",
+  displayName: "Odetola Azeez",
+  email: "yemiotola@gmail.com",
+  role: "Product designer",
   photoURL: "/static/mock-images/avatars/avatar_default.jpg",
 };
 const DRAWER_WIDTH = 280;

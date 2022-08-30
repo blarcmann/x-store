@@ -13,8 +13,8 @@ import {
 import MenuPopover from './MenuPopover'
 
 const account = {
-  displayName: "Jaydon Frankie",
-  email: "demo@minimals.cc",
+  displayName: "Odetola Azeez",
+  email: "yemiotola@gmail.com",
   photoURL: "/static/mock-images/avatars/avatar_default.jpg",
 };
 
