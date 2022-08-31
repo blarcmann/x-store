@@ -1,26 +1,31 @@
-import { alpha, styled } from "@mui/material/styles";
-import { Card, Typography } from "@mui/material";
+import { Box, Card, Typography, Stack } from "@mui/material";
 import { IconifyIcon } from "@iconify/react";
-import { shortNumber } from "../../utils/helpers";
-import Iconr from "../../components/Icon";
+import Icone from "../../components/Icon";
+import {
+  alpha,
+  useTheme,
+  experimentalStyled as styled,
+} from "@mui/material/styles";
+import { formatPercent, formatNumber } from "../../utils/helpers";
 
 interface WidgetProps {
   title: string;
   total: number;
+  percent?: number;
   sx?: object;
   color?: string;
   icon?: IconifyIcon | string;
 }
 
 const IconWrapperStyle = styled("div")(({ theme }) => ({
-  margin: "auto",
+  width: 24,
+  height: 24,
   display: "flex",
   borderRadius: "50%",
   alignItems: "center",
-  width: theme.spacing(8),
-  height: theme.spacing(8),
   justifyContent: "center",
-  marginBottom: theme.spacing(3),
+  color: theme.palette.success.main,
+  backgroundColor: alpha(theme.palette.success.main, 0.16),
 }));
 
 export default function AppWidgetSummary({
@@ -28,39 +33,48 @@ export default function AppWidgetSummary({
   total,
   icon,
   color = "primary",
+  percent = 0,
   sx,
   ...other
 }: WidgetProps) {
+  console.log('colorL:: ', color);
+  const theme = useTheme();
   return (
-    <Card
-      sx={{
-        py: 5,
-        boxShadow: 0,
-        textAlign: "center",
-        color: (theme: any) => theme.palette[color].darker,
-        bgcolor: (theme: any) => theme.palette[color].lighter,
-        ...sx,
-      }}
-      {...other}
-    >
-      <IconWrapperStyle
-        sx={{
-          color: (theme: any) => theme.palette[color].dark,
-          backgroundImage: (theme: any) =>
-            `linear-gradient(135deg, ${alpha(
-              theme.palette[color].dark,
-              0
-            )} 0%, ${alpha(theme.palette[color].dark, 0.24)} 100%)`,
-        }}
-      >
-        <Iconr icon={icon} width={24} height={24} />
-      </IconWrapperStyle>
+    <Card sx={{ display: "flex", alignItems: "center", p: 3 }}>
+      <Box sx={{ flexGrow: 1 }}>
+        <Typography variant="subtitle2">{title}</Typography>
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1}
+          sx={{ mt: 2, mb: 2 }}
+        >
+          <IconWrapperStyle
+            sx={{
+              ...(percent < 0 && {
+                color: "error.main",
+                bgcolor: alpha(theme.palette.error.main, 0.16),
+              }),
+            }}
+          >
+            <Icone
+              icon="mdi:trending-up"
+              width={16}
+              height={16}
+              style={{ color: "#54D62C" }}
+            />
+          </IconWrapperStyle>
+          <Typography component="span" variant="subtitle2">
+            {percent > 0 && "+"}
+            {formatPercent(percent)}
+          </Typography>
+        </Stack>
 
-      <Typography variant="h3">{shortNumber(total)}</Typography>
-
-      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        {title}
-      </Typography>
+        <Typography fontWeight="600" fontSize={28}>
+          {formatNumber(total)}
+        </Typography>
+      </Box>
+      <Icone icon={icon} width={60} height={60} style={{ color: color }} />
     </Card>
   );
 }

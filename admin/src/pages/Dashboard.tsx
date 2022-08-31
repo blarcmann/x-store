@@ -4,6 +4,37 @@ import AppWidgetSummary from "../sections/dashboard/AppWidgetSummary";
 import { VisitsByDevices, LatestOrders } from "../components/dashboard";
 import "chart.js/auto";
 
+const summary = [
+  {
+    title: "Average Sales",
+    total: 1742,
+    percent: 2.5,
+    color: "#5800FF",
+    icon: "ant-design:android",
+  },
+  {
+    title: "All Customers",
+    total: 2345,
+    percent: 11.2,
+    color: "#0096FF",
+    icon: "ant-design:android",
+  },
+  {
+    title: "Average Orders",
+    total: 341,
+    percent: 21.3,
+    color: "#00D7FF",
+    icon: "ant-design:android",
+  },
+  {
+    title: "All Products",
+    total: 11234,
+    percent: 33.6,
+    color: "#79DAE8",
+    icon: "ant-design:android",
+  },
+];
+
 export default function Dashboard() {
   return (
     <Page title="Dashboard">
@@ -13,40 +44,17 @@ export default function Dashboard() {
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary
-              title="Weekly Sales"
-              total={714000}
-              icon={"ant-design:android-filled"}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary
-              title="New Customers"
-              total={1352831}
-              color="info"
-              icon={"ant-design:apple-filled"}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary
-              title="Orders"
-              total={1723315}
-              color="warning"
-              icon={"ant-design:windows-filled"}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary
-              title="Bug Reports"
-              total={234}
-              color="error"
-              icon={"ant-design:bug-filled"}
-            />
-          </Grid>
+          {summary.map((summary, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <AppWidgetSummary
+                title={summary.title}
+                total={summary.total}
+                icon={summary.icon}
+                color={summary.color}
+                percent={summary.percent}
+              />
+            </Grid>
+          ))}
         </Grid>
 
         <Grid container spacing={3} mt={4}>

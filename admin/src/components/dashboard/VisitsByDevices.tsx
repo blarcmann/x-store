@@ -1,4 +1,4 @@
-import { Doughnut } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from '@mui/material';
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -12,7 +12,7 @@ const VisitsByDevices = (props: any) => {
       {
         data: [63, 15, 22],
         backgroundColor: ['#3F51B5', '#e53935', '#FB8C00'],
-        borderWidth: 8,
+        borderWidth: 4,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF'
       }
@@ -74,7 +74,7 @@ const VisitsByDevices = (props: any) => {
             position: 'relative'
           }}
         >
-          <Doughnut
+          <Pie
             data={data}
             options={options}
           />
@@ -100,13 +100,7 @@ const VisitsByDevices = (props: any) => {
               }}
             >
               <Icon color="action" />
-              <Typography
-                style={{ color }}
-                variant="h4"
-              >
-                {value}
-                %
-              </Typography>
+              <Typography style={{ color }}>{value}%</Typography>
             </Box>
           ))}
         </Box>

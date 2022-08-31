@@ -41,3 +41,11 @@ export function formatDate(date: any) {
 export function fData(number: any) {
   return numeral(number).format('0.0 b');
 }
+
+export function formatPercent(number: number | any) {
+  return numeral(number / 100).format('0.0%');
+}
+
+export function formatNumber(number: number | any) {
+  return numeral(number).format();
+}
