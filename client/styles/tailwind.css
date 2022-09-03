@@ -1,7 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 /* Write your own custom base styles here */
 @layer base {
 	html {
@@ -60,7 +59,7 @@
 		@apply shadow-header;
 	}
 	.headerMenu .menuItem > a::before {
-		@apply absolute end-0 w-0 bg-heading -bottom-7;
+		/* @apply absolute end-0 w-0 bg-heading -bottom-7; */
 		content: "";
 		height: 3px;
 		transition: all 0.3s ease-in-out 0s;
@@ -106,7 +105,7 @@
 	}
 
 	.headerMenu .menuItem:hover > a::before {
-		@apply w-full end-auto start-0;
+		/* @apply w-full end-auto start-0; */
 	}
 	.headerMenu .menuItem:hover > .megaMenu,
 	.headerMenu .menuItem:hover > .subMenu {
@@ -121,10 +120,10 @@
 	.mobileMenu .menu-item.active::before {
 		content: "";
 		width: 3px;
-		@apply flex absolute h-full bg-heading top-0 start-0 bottom-0;
+		/* @apply flex absolute h-full bg-heading top-0 start-0 bottom-0; */
 	}
 	.mobileMenu li li {
-		@apply text-body text-sm;
+		/* @apply text-body text-sm; */
 	}
 	.mobileMenu li li div > a {
 		@apply relative py-2.5 text-body;
@@ -132,7 +131,7 @@
 	.mobileMenu li > ul > li > div > a:before {
 		content: "";
 		height: 1px;
-		@apply flex absolute bg-body top-1/2 start-1.5 md:start-3 w-1.5 md:w-2;
+		/* @apply flex absolute bg-body top-1/2 start-1.5 md:start-3 w-1.5 md:w-2; */
 	}
 
 	/* Hero Banner */

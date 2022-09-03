@@ -1,9 +1,7 @@
 import React from "react";
 import { cartReducer, State, initialState } from "./cart.reducer";
 import { Item, getItem } from "./cart.utils";
-import { useLocalStorage } from "@utils/use-local-storage";
-
-
+import { useLocalStorage } from "@utils/index";
 
 interface CartProviderState extends State {
   addItemToCart: (item: Item, quantity: number) => void;
@@ -12,7 +10,6 @@ interface CartProviderState extends State {
   getItemFromCart: (id: Item["id"]) => any | undefined;
   isInCart: (id: Item["id"]) => boolean;
 }
-
 
 export const cartContext = React.createContext<CartProviderState | undefined>(
   undefined
