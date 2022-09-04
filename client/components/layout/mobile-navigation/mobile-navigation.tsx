@@ -1,6 +1,6 @@
 import { Link } from "@components/ui";
 import {
-  IoSearchCircle,
+  IoSearchOutline,
   IoHomeOutline,
   IoPersonOutline,
   IoMenu,
@@ -48,17 +48,17 @@ const BottomNavigation: React.FC = () => {
           className="menuBtn flex flex-col items-center justify-center flex-shrink-0 outline-none focus:outline-none"
           onClick={handleMobileMenu}
         >
-          <IoMenu />
+          <IoMenu style={{fontSize: '20px'}}/>
         </button>
         <button
           className="flex items-center justify-center flex-shrink-0 h-auto relative focus:outline-none"
           onClick={openSearch}
           aria-label="search-button"
         >
-          <IoSearchCircle />
+          <IoSearchOutline style={{fontSize: '24px'}} />
         </button>
         <Link href="/" className="flex-shrink-0">
-          <IoHomeOutline />
+          <IoHomeOutline style={{fontSize: '20px'}}/>
         </Link>
         <CartButton />
         <AuthMenu
@@ -71,7 +71,7 @@ const BottomNavigation: React.FC = () => {
             onClick: handleLogin,
           }}
         >
-          <IoPersonOutline />
+          <IoPersonOutline style={{fontSize: '24px'}} />
         </AuthMenu>
       </div>
       <Drawer

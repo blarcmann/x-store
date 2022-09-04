@@ -16,9 +16,16 @@
 }
 
 /* Drawer */
-.drawer .drawer-content-wrapper {
+.rc-drawer .rc-drawer-content-wrapper {
 	@apply w-full sm:w-450px;
 }
+
+@media(max-width: 400px) {
+	.rc-drawer .rc-drawer-content-wrapper {
+		width: 100% !important;
+	}
+}
+
 .drawer-search {
 	transform: translate(-50%, 50px);
 }
