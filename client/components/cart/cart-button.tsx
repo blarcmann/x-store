@@ -15,8 +15,8 @@ const CartButton = () => {
       onClick={handleCartOpen}
       aria-label="cart-button"
     >
-      <IoCartOutline width={32} height={32} />
-      <span className="cart-counter-badge flex items-center justify-center bg-heading text-white absolute -top-2.5 xl:-top-3 -end-2.5 xl:-end-3 rounded-full font-bold">
+      <IoCartOutline style={{ fontSize: "22px" }} />
+      <span className="cart-counter-badge flex items-center justify-center bg-heading text-white absolute -top-2.5 -right-2.5 xl:-top-3 -end-2.5 xl:-end-3 rounded-full font-bold">
         {totalItems}
       </span>
     </button>

@@ -134,7 +134,7 @@ export default function MobileMenu() {
 
   return (
     <>
-      <div className="flex flex-col justify-between w-full h-full">
+      <div className="flex flex-col justify-between w-full h-full px-3">
         <div className="w-full border-b border-gray-100 flex justify-between items-center relative ps-5 md:ps-7 flex-shrink-0 py-0.5">
           <Logo />
 

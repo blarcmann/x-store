@@ -11,20 +11,7 @@ interface Props {
   className?: string;
 }
 
-// const categoryResponsive = {
-//   "768": {
-//     slidesPerView: 3,
-//     spaceBetween: 14,
-//   },
-//   "480": {
-//     slidesPerView: 2,
-//     spaceBetween: 12,
-//   },
-//   "0": {
-//     slidesPerView: 1,
-//     spaceBetween: 12,
-//   },
-// };
+
 
 const HeroWithCategoryFlash: React.FC<Props> = ({
   className = "mb-12 md:mb-14 xl:mb-16",
@@ -66,21 +53,19 @@ export function CategoryListCardSection() {
         </div>
       ) : width < 1025 ? (
         <div className="col-span-full">
-          <div>
-            {isLoading
-              ? Array.from({ length: 7 }).map((_, idx) => (
-                  <CategoryListLoader
-                    uniqueKey={`category-list-${idx}`}
-                    key={idx}
-                  />
-                ))
-              : data?.categories.data.map((category: any) => (
-                  <CategoryListCard
-                    category={category}
-                    key={`sm-category--key${category.id}`}
-                  />
-                ))}
-          </div>
+          {isLoading
+            ? Array.from({ length: 7 }).map((_, idx) => (
+                <CategoryListLoader
+                  uniqueKey={`category-list-${idx}`}
+                  key={idx}
+                />
+              ))
+            : data?.categories.data.map((category: any) => (
+                <CategoryListCard
+                  category={category}
+                  key={`sm-category--key${category.id}`}
+                />
+              ))}
         </div>
       ) : (
         <div className="col-span-full lg:col-span-2 grid grid-cols-1 gap-3 justify-between">

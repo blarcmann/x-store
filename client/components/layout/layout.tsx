@@ -10,13 +10,7 @@ const Layout: React.FC = ({ children }: any) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main
-        className="relative flex-grow"
-        style={{
-          minHeight: "-webkit-fill-available",
-          WebkitOverflowScrolling: "touch",
-        }}
-      >
+      <main className="relative flex-grow">
         {children}
       </main>
       <Footer />
