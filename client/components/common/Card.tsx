@@ -26,10 +26,10 @@ const Card: React.FC<Props> = ({
 	return (
 		<Link
 			href={href || '/'}
-			className="group flex justify-center text-center flex-col"
+			className="group flex justify-center text-center flex-col mr-3"
 		>
 			<div
-				className={`relative inline-flex mb-3.5 md:mb-4 lg:mb-5 xl:mb-6 mx-auto ${
+				className={`relative inline-flex mb-1.5 md:mb-2 lg:mb-5 xl:mb-6 mx-auto ${
 					variant === "rounded" ? "rounded-md" : "rounded-full"
 				}`}
 			>
@@ -58,7 +58,7 @@ const Card: React.FC<Props> = ({
 					</>
 				)}
 			</div>
-			<Text variant="heading" className="capitalize">
+			<Text variant="body" className="capitalize">
 				{name}
 			</Text>
 		</Link>

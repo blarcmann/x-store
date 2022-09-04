@@ -11,33 +11,6 @@ interface BrandProps {
   className?: string;
 }
 
-// const breakpoints = {
-//   "1720": {
-//     slidesPerView: 8,
-//     spaceBetween: 28,
-//   },
-//   "1400": {
-//     slidesPerView: 7,
-//     spaceBetween: 28,
-//   },
-//   "1025": {
-//     slidesPerView: 6,
-//     spaceBetween: 28,
-//   },
-//   "768": {
-//     slidesPerView: 5,
-//     spaceBetween: 20,
-//   },
-//   "500 ": {
-//     slidesPerView: 4,
-//     spaceBetween: 20,
-//   },
-//   "0": {
-//     slidesPerView: 3,
-//     spaceBetween: 12,
-//   },
-// };
-
 const BrandBlock: React.FC<BrandProps> = ({
   className = "mb-11 md:mb-11 lg:mb-12 xl:mb-14 lg:pb-1 xl:pb-0",
   sectionHeading,
@@ -53,7 +26,7 @@ const BrandBlock: React.FC<BrandProps> = ({
       {error ? (
         <Alert message={error?.message} />
       ) : (
-        <div className="-mt-8 md:-mt-12">
+        <div className="flex justify-between my-2">
           {isLoading && !data
             ? Array.from({ length: 10 }).map((_, idx) => (
                 <CardLoader uniqueKey={`category-${idx}`} key={idx} />
@@ -63,7 +36,7 @@ const BrandBlock: React.FC<BrandProps> = ({
                   key={idx}
                   item={brand}
                   variant="rounded"
-                  size="medium"
+                  size="small"
                   href={{
                     pathname: ROUTES.SEARCH,
                     query: { brand: brand.slug },

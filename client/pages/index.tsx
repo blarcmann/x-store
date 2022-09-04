@@ -24,7 +24,7 @@ export default function Home() {
       </Container>
       <Container>
         <FlashSaleBlock date={"2023-03-01T01:02:03"} />
-        <BrandBlock sectionHeading="text-top-brands" />
+        <BrandBlock sectionHeading="Top brands" />
         <NewArrivalsProductFeed />
         <Support />
       </Container>

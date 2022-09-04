@@ -11,7 +11,7 @@ interface ProductsProps {
 }
 
 const ProductsFlashSaleBlock: React.FC<ProductsProps> = ({
-	sectionHeading = "text-flash-sale",
+	sectionHeading = "Flash sale",
 	className = "mb-12 md:mb-14 xl:mb-16",
 	date = "2023-03-01T01:02:03",
 }) => {
