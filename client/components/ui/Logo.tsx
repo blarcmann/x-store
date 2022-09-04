@@ -10,7 +10,7 @@ const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
 	return (
 		<Link
 			href={siteSettings.logo.href || '/'}
-			className={cn("inline-flex focus:outline-none", className)}
+			className={cn("inline-flex focus:outline-none mr-4", className)}
 			{...props}
 		>
 			<Image
