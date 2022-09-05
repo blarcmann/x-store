@@ -1,8 +1,7 @@
 import { BannerCard, CategoryListCard } from "@components/common";
 import { useCategoriesQuery } from "@framework/category/get-all-categories";
-// import { useFlashSaleProductsQuery } from "@framework/product/get-flash-sale-products";
 import { useWindowSize } from "@utils/index";
-import { homeFourGridBanners as banners } from "@framework/static/banner";
+import { gridBanners as banners } from "@framework/banner";
 import { CategoryListLoader } from "@components/ui/loaders";
 import { ROUTES } from "@utils/routes";
 import { Alert } from "@components/ui";
@@ -10,7 +9,6 @@ import { Alert } from "@components/ui";
 interface Props {
   className?: string;
 }
-
 
 
 const HeroWithCategoryFlash: React.FC<Props> = ({

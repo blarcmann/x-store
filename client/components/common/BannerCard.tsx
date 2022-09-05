@@ -1,4 +1,4 @@
-import { Link } from '../ui';
+import { Link } from '@components/ui';
 import Image from 'next/image';
 import type { FC } from 'react';
 import { useWindowSize } from '@utils/index';
@@ -32,7 +32,7 @@ const BannerCard: FC<BannerProps> = ({
   return (
     <div className={cn('mx-auto', className)}>
       <Link
-        href={href || '/'}
+        href={href}
         className={cn(
           'h-full group flex justify-center relative overflow-hidden',
           classNameInner
