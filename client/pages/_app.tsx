@@ -3,19 +3,16 @@ import { useRef } from "react";
 import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import { ManagedUIContext } from "@contexts/ui.context";
-// import ManagedModal from "@components/common/modal/managed-modal";
-// import { Drawer } from "@components/common";
 import ManagedDrawer from "@components/common/drawer/managed-drawer";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
 import { ToastContainer } from "react-toastify";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-// Load Open Sans and satisfy typeface font
 import "@fontsource/open-sans";
 import "@fontsource/open-sans/600.css";
 import "@fontsource/open-sans/700.css";
-// external
+// external css
 import "react-toastify/dist/ReactToastify.css";
 import "@styles/custom-plugins.css";
 import "@styles/tailwind.css";
