@@ -7,5 +7,4 @@ export { default as SearchBox } from "./SearchBox";
 export { default as SearchProduct} from './SearchProduct';
 export { default as Search} from './Search';
 export { default as CookieBar} from './CookieBar';
-export { default as Support} from './Support';
 export { default as CategoryListCard} from './CategoryList';
