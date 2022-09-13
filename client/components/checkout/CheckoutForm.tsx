@@ -56,7 +56,7 @@ const CheckoutForm: React.FC = () => {
               })}
               errorKey={errors.lastName?.message}
               variant="solid"
-              className="w-full lg:w-1/2 lg:ms-3 mt-2 md:mt-0"
+              className="w-full lg:w-1/2 lg:mx-3 mt-2 md:mt-0"
             />
           </div>
           <Input
@@ -92,7 +92,7 @@ const CheckoutForm: React.FC = () => {
               })}
               errorKey={errors.email?.message}
               variant="solid"
-              className="w-full lg:w-1/2 lg:ms-3 mt-2 md:mt-0"
+              className="w-full lg:w-1/2 lg:mx-3 mt-2 md:mt-0"
             />
           </div>
           <div className="relative flex items-center ">
