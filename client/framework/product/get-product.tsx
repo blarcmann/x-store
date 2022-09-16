@@ -7,6 +7,7 @@ export const fetchProduct = async (_slug: string) => {
 	const { data } = await http.get(`${API_ENDPOINTS.PRODUCT}`);
 	return data;
 };
+
 export const useProductQuery = (slug: string) => {
 	return useQuery<Product, Error>([API_ENDPOINTS.PRODUCT, slug], () =>
 		fetchProduct(slug)

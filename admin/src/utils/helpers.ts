@@ -49,3 +49,7 @@ export function formatPercent(number: number | any) {
 export function formatNumber(number: number | any) {
   return numeral(number).format();
 }
+
+export function generateId() {
+  return Math.random().toString(36).slice(2, 14);
+}

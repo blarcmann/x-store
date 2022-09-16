@@ -45,7 +45,7 @@ const PriceOff = styled("h2")(({ theme }) => ({
 }));
 
 const productDetails = {
-  title: "Nike air force 1 ndestrukt",
+  title: "Nike air force 1",
   inStock: true,
   price: 99.99,
   discount: 10,

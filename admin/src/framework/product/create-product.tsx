@@ -1,6 +1,6 @@
-import { Product } from "@framework/types";
-import http from "@framework/http";
-import { API_ENDPOINTS } from "@framework/endpoints";
+import http from "../http";
+import { API_ENDPOINTS } from "../endpoints";
+import { Product } from "../types";
 import { useQuery } from "react-query";
 
 export const createProduct = async (product: Product) => {

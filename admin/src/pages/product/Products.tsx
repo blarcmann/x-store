@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { faker } from "@faker-js/faker";
 import { SearchNotFound, MoreMenu, Heading } from "../../components/table";
-import { Page, Icone, ColorPreview, Label } from "../../components";
+import { Page, Icone, ColorPreview, Label } from "../../components/index";
 import { getRandomInt } from "../../utils/helpers";
 
 const TABLE_HEAD = [

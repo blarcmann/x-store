@@ -25,8 +25,9 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import UploadFile from "./UploadFile";
-
-// ----------------------------------------------------------------------
+import { generateId } from "../../utils/helpers";
+import { ref, uploadBytes, UploadResult, getDownloadURL } from "firebase/storage";
+import {storage} from '../../framework/firebase';
 
 const GENDER_OPTION = ["Men", "Women", "Kids"];
 
@@ -69,14 +70,19 @@ ProductForm.propTypes = {
   currentProduct: PropTypes.object,
 };
 
-export default function ProductForm({ isEdit, currentProduct }: any) {
-
+export default function ProductForm({
+  isEdit,
+  currentProduct,
+  submitProduct,
+}: any) {
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     description: Yup.string().required("Description is required"),
     images: Yup.array().min(1, "Images is required"),
     price: Yup.number().required("Price is required"),
   });
+
+  console.log("getRandomInt: ", generateId());
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -139,8 +145,19 @@ export default function ProductForm({ isEdit, currentProduct }: any) {
   };
 
   const handleRemove = (file: any) => {
-    const filteredItems = values.images.filter((_file: any) => _file !== file);
-    setFieldValue("images", filteredItems);
+    const imagename = file.name.split('.');
+    const imageRef = ref(storage, `products/${imagename[0]}-${generateId()}`);
+    uploadBytes(imageRef, file).then((value: UploadResult) => {
+      if (value.ref) {
+        getDownloadURL(value.ref).then(url => {
+          console.log('URL', url);
+        })
+      } else {
+        console.log('error occured: ', value);
+      }
+    });
+    // const filteredItems = values.images.filter((_file: any) => _file !== file);
+    // setFieldValue("images", filteredItems);
   };
 
   return (
@@ -157,14 +174,18 @@ export default function ProductForm({ isEdit, currentProduct }: any) {
                   error={Boolean(touched.name && errors.name)}
                 />
 
-                <div style={{height: '300px'}}>
+                <div style={{ height: "300px" }}>
                   <LabelStyle>Description</LabelStyle>
                   <ReactQuill
                     id="product-description"
                     placeholder="Enter product details"
                     value={values.description}
                     onChange={(val) => setFieldValue("description", val)}
-                    style={{height: '220px', borderRadius: '16px', overflowY: 'visible'}}
+                    style={{
+                      height: "220px",
+                      borderRadius: "16px",
+                      overflowY: "visible",
+                    }}
                   />
                   {touched.description && errors.description && (
                     <FormHelperText error sx={{ px: 2 }}>
@@ -178,7 +199,9 @@ export default function ProductForm({ isEdit, currentProduct }: any) {
                   <UploadFile
                     showPreview
                     maxSize={3145728}
-                    accept="image/*"
+                    accept={{
+                      "image/*": [".png", ".jpeg", ".jpg"],
+                    }}
                     files={values.images}
                     onDrop={handleDrop}
                     onRemove={handleRemove}
@@ -265,7 +288,7 @@ export default function ProductForm({ isEdit, currentProduct }: any) {
                     }}
                     options={TAGS_OPTION.map((option) => option)}
                     renderTags={(value, getTagProps) =>
-                      value.map(({ option, index }: any) => (
+                      value.map((option, index) => (
                         <Chip
                           size="small"
                           label={option}

@@ -73,10 +73,10 @@ export default function UploadFile({
   onRemove,
   onRemoveAll,
   sx,
+  accept,
   ...other
 }: UploadFileProps) {
   const hasFile = files.length > 0;
-
   const {
     getRootProps,
     getInputProps,
@@ -84,6 +84,7 @@ export default function UploadFile({
     isDragReject,
     fileRejections,
   } = useDropzone({
+    accept,
     ...other,
   });
 
@@ -131,7 +132,11 @@ export default function UploadFile({
       >
         <input {...getInputProps()} />
 
-        <img src={require("../assets/upload.png")} alt="" style={{width: '220px', borderRadius: '16px'}} />
+        <img
+          src={require("../assets/upload.png")}
+          alt=""
+          style={{ width: "220px", borderRadius: "16px" }}
+        />
 
         <Box sx={{ p: 3, ml: { md: 2 } }}>
           <Typography gutterBottom variant="h5">
