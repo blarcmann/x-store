@@ -1,6 +1,6 @@
+import { useCallback, useState } from "react";
 import * as Yup from "yup";
 import PropTypes from "prop-types";
-import { useCallback } from "react";
 import { Form, FormikProvider, useFormik } from "formik";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import {
@@ -26,11 +26,16 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import UploadFile from "./UploadFile";
 import { generateId } from "../../utils/helpers";
-import { ref, uploadBytes, UploadResult, getDownloadURL } from "firebase/storage";
-import {storage} from '../../framework/firebase';
+import {
+  ref,
+  uploadBytes,
+  UploadResult,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
+import { storage } from "../../framework/firebase";
 
 const GENDER_OPTION = ["Men", "Women", "Kids"];
-
 const CATEGORY_OPTION = [
   { group: "Clothing", classify: ["Shirts", "T-shirts", "Jeans", "Leather"] },
   {
@@ -43,20 +48,65 @@ const CATEGORY_OPTION = [
   },
 ];
 
+// source: https://api.ximilar.com/tagging/fashion/v2/top_categories
 const TAGS_OPTION = [
-  "Toy Story 3",
-  "Logan",
-  "Full Metal Jacket",
-  "Dangal",
-  "The Sting",
-  "2001: A Space Odyssey",
-  "Singin' in the Rain",
-  "Toy Story",
-  "Bicycle Thieves",
-  "The Kid",
-  "Inglourious Basterds",
-  "Snatch",
-  "3 Idiots",
+  "Baby Clothes",
+  "Bathrobes",
+  "Dresses",
+  "Jackets and Coats",
+  "Nightwear",
+  "Overalls and Dungarees",
+  "Pants",
+  "Skirts",
+  "Upper",
+  "Ballerinas",
+  "Chelsea and Ankle boots",
+  "Crocs",
+  "Desert Boots",
+  "Espadrilles",
+  "Flip-Flops",
+  "Formal Shoes",
+  "Free Time Shoes",
+  "Hiking",
+  "Ladies High Boots",
+  "Mary Jane Shoes",
+  "Mules",
+  "Pumps",
+  "Rubber Boots",
+  "Sandals",
+  "Ski Boots",
+  "Slippers",
+  "Sneakers",
+  "Snow Boots",
+  "Trainers",
+  "Bracelets",
+  "Brooches, Badges and Pins",
+  "Cufflinks",
+  "Earrings and Earcuffs",
+  "Keyrings",
+  "Necklaces, Pendants and Chains",
+  "Rings",
+  "Pins and Clips",
+  "Backpacks",
+  "Bum Bags",
+  "Luggage",
+  "Men's Bags",
+  "Purses and Wallets",
+  "Women's Bags",
+  "Bag Straps",
+  "Belts",
+  "Eyewear",
+  "Gloves",
+  "Hats and Caps",
+  "Scarves",
+  "Suspenders",
+  "Ties",
+  "Bodies",
+  "Bras",
+  "Panties and Underpants",
+  "Sets",
+  "Socks",
+  "Tights",
 ];
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
@@ -75,6 +125,8 @@ export default function ProductForm({
   currentProduct,
   submitProduct,
 }: any) {
+  const [firImages, setFirImages] = useState<any>([]);
+
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     description: Yup.string().required("Description is required"),
@@ -82,10 +134,8 @@ export default function ProductForm({
     price: Yup.number().required("Price is required"),
   });
 
-  console.log("getRandomInt: ", generateId());
-
   const formik = useFormik({
-    enableReinitialize: true,
+    enableReinitialize: false,
     initialValues: {
       name: currentProduct?.name || "",
       description: currentProduct?.description || "",
@@ -95,7 +145,7 @@ export default function ProductForm({
       price: currentProduct?.price || "",
       priceSale: currentProduct?.priceSale || "",
       tags: currentProduct?.tags || [TAGS_OPTION[0]],
-      inStock: Boolean(currentProduct?.inventoryType !== "out_of_stock"),
+      inStock: true,
       taxes: true,
       gender: currentProduct?.gender || GENDER_OPTION[2],
       category: currentProduct?.category || CATEGORY_OPTION[0].classify[1],
@@ -103,11 +153,11 @@ export default function ProductForm({
     validationSchema: NewProductSchema,
 
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
+      values.images = firImages.map((image: any) => image.url);
+      console.log("values: ", values);
       try {
-        // await fakeRequest(500);
         resetForm();
         setSubmitting(false);
-        // enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });
       } catch (error: any) {
         console.error(error);
         setSubmitting(false);
@@ -127,37 +177,67 @@ export default function ProductForm({
   } = formik;
 
   const handleDrop = useCallback(
-    (acceptedFiles: any[]) => {
+    (acceptedFiles: any) => {
       setFieldValue(
         "images",
-        acceptedFiles.map((file) =>
+        acceptedFiles.map((file: any) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         )
       );
+      acceptedFiles.map((file: any) => uploadToStorage(file));
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setFieldValue]
   );
 
   const handleRemoveAll = () => {
+    firImages.map((image: any) => deleteFromStorage(image));
     setFieldValue("images", []);
   };
 
+  const updateStateImages = (url: string, ref: any, name: string) => {
+    const val = { ref, url, name };
+    const fmg = firImages;
+    fmg.push(val);
+    setFirImages(fmg);
+  };
+
+  const uploadToStorage = (file: any | File) => {
+    const name = file.name.split(".")[0];
+    const imageRef = ref(storage, `products/${name}-${generateId()}`);
+    uploadBytes(imageRef, file)
+      .then((value: UploadResult) => {
+        if (value.ref) {
+          getDownloadURL(value.ref).then((url) => {
+            updateStateImages(url, imageRef, name);
+          });
+        } else {
+          console.log("error occured: ", value);
+        }
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  };
+
+  const deleteFromStorage = (image: any) => {
+    const imageRef = ref(storage, image.ref.fullPath);
+    deleteObject(imageRef)
+      .then(() => console.log("success res"))
+      .catch((error) => console.log("error occured: ", error));
+  };
+
   const handleRemove = (file: any) => {
-    const imagename = file.name.split('.');
-    const imageRef = ref(storage, `products/${imagename[0]}-${generateId()}`);
-    uploadBytes(imageRef, file).then((value: UploadResult) => {
-      if (value.ref) {
-        getDownloadURL(value.ref).then(url => {
-          console.log('URL', url);
-        })
-      } else {
-        console.log('error occured: ', value);
-      }
+    const imgname = file?.name.split(".")[0];
+    const filteredImages = firImages.filter((image: any) => {
+      if (image.name === imgname) deleteFromStorage(image);
+      return image.name !== imgname;
     });
-    // const filteredItems = values.images.filter((_file: any) => _file !== file);
-    // setFieldValue("images", filteredItems);
+    setFirImages(filteredImages);
+    const filteredItems = values.images.filter((_file: any) => _file !== file);
+    setFieldValue("images", filteredItems);
   };
 
   return (
