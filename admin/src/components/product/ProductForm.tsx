@@ -128,7 +128,7 @@ export default function ProductForm({
   const [firImages, setFirImages] = useState<any>([]);
 
   const NewProductSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
+    title: Yup.string().required("Name is required"),
     description: Yup.string().required("Description is required"),
     images: Yup.array().min(1, "Images is required"),
     price: Yup.number().required("Price is required"),
@@ -137,24 +137,23 @@ export default function ProductForm({
   const formik = useFormik({
     enableReinitialize: false,
     initialValues: {
-      name: currentProduct?.name || "",
+      title: currentProduct?.title || "",
       description: currentProduct?.description || "",
       images: currentProduct?.images || [],
-      code: currentProduct?.code || "",
       sku: currentProduct?.sku || "",
       price: currentProduct?.price || "",
-      priceSale: currentProduct?.priceSale || "",
+      salePrice: currentProduct?.salePrice || "",
       tags: currentProduct?.tags || [TAGS_OPTION[0]],
       inStock: true,
-      taxes: true,
-      gender: currentProduct?.gender || GENDER_OPTION[2],
+      gender: currentProduct?.gender || GENDER_OPTION[0],
       category: currentProduct?.category || CATEGORY_OPTION[0].classify[1],
     },
     validationSchema: NewProductSchema,
 
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
       values.images = firImages.map((image: any) => image.url);
-      console.log("values: ", values);
+      submitProduct(values);
+      setFirImages([]);
       try {
         resetForm();
         setSubmitting(false);
@@ -249,9 +248,9 @@ export default function ProductForm({
               <Stack spacing={3}>
                 <TextField
                   fullWidth
-                  label="Product Name"
-                  {...getFieldProps("name")}
-                  error={Boolean(touched.name && errors.name)}
+                  label="Product Title"
+                  {...getFieldProps("title")}
+                  error={Boolean(touched.title && errors.title)}
                 />
 
                 <div style={{ height: "300px" }}>
@@ -313,11 +312,6 @@ export default function ProductForm({
                 />
 
                 <Stack spacing={3}>
-                  <TextField
-                    fullWidth
-                    label="Product Code"
-                    {...getFieldProps("code")}
-                  />
                   <TextField
                     fullWidth
                     label="Product SKU"
@@ -403,7 +397,7 @@ export default function ProductForm({
                     fullWidth
                     placeholder="0.00"
                     label="Sale Price"
-                    {...getFieldProps("priceSale")}
+                    {...getFieldProps("salePrice")}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">$</InputAdornment>
@@ -412,17 +406,6 @@ export default function ProductForm({
                     }}
                   />
                 </Stack>
-
-                <FormControlLabel
-                  control={
-                    <Switch
-                      {...getFieldProps("taxes")}
-                      checked={values.taxes}
-                    />
-                  }
-                  label="Price includes taxes"
-                  sx={{ mt: 2 }}
-                />
               </Card>
 
               <LoadingButton

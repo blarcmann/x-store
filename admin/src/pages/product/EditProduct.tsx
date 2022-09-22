@@ -16,7 +16,9 @@ export default function EcommerceProductCreate() {
   }, []);
 
   const submitProduct = (product: Product) => {
-    createProduct(product);
+    createProduct(product).then((data) => {
+      console.log("data:>", data);
+    });
     console.log("submitted");
   };
 
