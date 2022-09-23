@@ -14,7 +14,7 @@ import {
 import { TabPanel, TabContext, TabList } from "@mui/lab";
 import { Link as RouterLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import { Page, ColorPreview, Icone } from "../../components";
+import { Page, Icone } from "../../components";
 
 const ImagePreview = styled("img")(({ theme }) => ({
   borderRadius: theme.spacing(1.5),
@@ -56,7 +56,7 @@ const productDetails = {
 export default function Product() {
   const [index, setIndex] = useState<string>("1");
   const [rate] = useState<number>(4);
-  const { title, inStock, price, discount, colors, qtyAvailable } =
+  const { title, inStock, price, discount, qtyAvailable } =
     productDetails;
 
   const handleTabChange = (_: any, val: string) => {
@@ -124,7 +124,7 @@ export default function Product() {
               <CenteredBox>
                 <Typography>Colors</Typography>
                 <BorderedBox>
-                  <ColorPreview colors={colors} />
+                  {/* <ColorPreview colors={colors} /> */}
                 </BorderedBox>
               </CenteredBox>
               <CenteredBox>

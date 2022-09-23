@@ -20,7 +20,7 @@ export const fetchProducts = async () => {
 };
 
 export const useProductsQuery = () => {
-	return useQuery<Product, Error>([API_ENDPOINTS.FETCH_PRODUCTS], () =>
+	return useQuery<Product[], Error>([API_ENDPOINTS.FETCH_PRODUCTS], () =>
 		fetchProducts()
 	);
 };
