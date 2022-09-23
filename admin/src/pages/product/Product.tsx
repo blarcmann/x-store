@@ -12,56 +12,23 @@ import {
   Tab,
 } from "@mui/material";
 import { TabPanel, TabContext, TabList } from "@mui/lab";
-import { Link as RouterLink } from "react-router-dom";
-import { styled } from "@mui/material/styles";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import { Page, Icone } from "../../components";
 
-const ImagePreview = styled("img")(({ theme }) => ({
-  borderRadius: theme.spacing(1.5),
-  width: "100%",
-  height: "auto",
-}));
-
-const BorderedBox = styled("div")(({ theme }) => ({
-  borderRadius: theme.spacing(0.75),
-  border: "1px solid",
-  borderColor: theme.palette.grey[400],
-  padding: "0.75rem 1rem",
-}));
-
-const CenteredBox = styled("div")(({ theme }) => ({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  marginBottom: theme.spacing(3),
-}));
-
-const PriceOff = styled("h2")(({ theme }) => ({
-  textDecoration: "line-through",
-  fontWeight: "600",
-  marginRight: theme.spacing(1),
-  color: theme.palette.grey[500],
-  fontSize: theme.typography.pxToRem(32),
-}));
-
-const productDetails = {
-  title: "Nike air force 1",
-  inStock: true,
-  price: 99.99,
-  discount: 10,
-  colors: ["#2e3aeb", "#00aded", "#89FF2e", "#ed6b00"],
-  qtyAvailable: 18,
-};
+import { ImagePreview, PriceOff } from "./styles";
+import { useFetchProductQuery } from "../../framework/product/get-product";
 
 export default function Product() {
   const [index, setIndex] = useState<string>("1");
   const [rate] = useState<number>(4);
-  const { title, inStock, price, discount, qtyAvailable } =
-    productDetails;
-
+  const { id } = useParams();
+  const { isLoading, data } = useFetchProductQuery(id);
+  console.log("id: ", data);
   const handleTabChange = (_: any, val: string) => {
     setIndex(val);
   };
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   return (
     <Page title="Dashboard">
@@ -71,14 +38,14 @@ export default function Product() {
         </Typography>
         <Typography variant="overline" display="block" sx={{ mb: 5 }}>
           Products &gt;
-          <Typography variant="caption">{title}</Typography>
+          <Typography variant="caption">{data.title}</Typography>
         </Typography>
         <Card variant="outlined" sx={{ padding: "1rem" }}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <ImagePreview
-                src={require("../assets/product_1.jpeg")}
-                alt={title}
+                src={data.images[0]}
+                alt={data.title}
                 loading="lazy"
               />
             </Grid>
@@ -89,7 +56,7 @@ export default function Product() {
               sx={{ paddingTop: "2rem !important", marginLeft: "5%" }}
             >
               <Box mb={2}>
-                {inStock ? (
+                {data.inStock ? (
                   <Chip label={"in stock".toUpperCase()} color="secondary" />
                 ) : (
                   <Chip label={"out of stock".toUpperCase()} color="error" />
@@ -102,7 +69,7 @@ export default function Product() {
                 marginBottom={2}
                 sx={{ fontWeight: "400" }}
               >
-                {title}
+                {data.title}
               </Typography>
               <Box display="flex" alignItems="center" flexDirection="row">
                 <Rating
@@ -115,45 +82,48 @@ export default function Product() {
                 <Typography>(492 Reviews)</Typography>
               </Box>
               <Box display="flex" marginTop={2}>
-                {discount && <PriceOff>${price}</PriceOff>}
-                <Typography variant="h3">
-                  ${(price - (discount / 100) * price).toFixed(2)}
+                {data.salePrice && (
+                  <PriceOff>₦ {data.price.toFixed(2)}</PriceOff>
+                )}
+                <Typography variant="h3" fontWeight="400">
+                  ₦ {data.salePrice.toFixed(2)}
                 </Typography>
               </Box>
               <Divider sx={{ margin: "2rem 0" }} />
-              <CenteredBox>
-                <Typography>Colors</Typography>
-                <BorderedBox>
-                  {/* <ColorPreview colors={colors} /> */}
-                </BorderedBox>
-              </CenteredBox>
-              <CenteredBox>
-                <Typography>Quantity Available</Typography>
-                <BorderedBox>
-                  <Typography>{qtyAvailable} pcs</Typography>
-                </BorderedBox>
-              </CenteredBox>
+              <Box display="flex" marginY="12px">
+                <Typography>Category: &nbsp;</Typography>
+                <Typography variant="subtitle1">{data.category}</Typography>
+              </Box>
+              <Box display="flex" marginY="12px">
+                <Typography>Quantity Available: &nbsp;</Typography>
+                <Typography variant="subtitle1">Unlimited</Typography>
+              </Box>
+              <Box display="flex" marginY="12px">
+                <Typography>Tags: &nbsp;</Typography>
+                <Typography variant="subtitle1">
+                  {data.tags.map((tag: string) => `${tag} | `)}
+                </Typography>
+              </Box>
               <Divider sx={{ margin: "2rem 0" }} />
-              <CenteredBox>
+              <Box display="flex" justifyContent="flex-start">
                 <Button
-                  size="large"
-                  variant="contained"
-                  color="secondary"
+                  size="medium"
+                  variant="outlined"
                   component={RouterLink}
                   to="#"
+                  style={{marginRight: '12px'}}
                   startIcon={<Icone icon="eva:edit-fill" />}
                 >
-                  Edit Product
+                  Edit
                 </Button>
                 <Button
-                  size="large"
-                  variant="contained"
-                  color="error"
+                  size="medium"
+                  variant="outlined"
                   startIcon={<Icone icon="eva:trash-2-fill" />}
                 >
-                  Remove Product
+                  Remove
                 </Button>
-              </CenteredBox>
+              </Box>
             </Grid>
           </Grid>
         </Card>
@@ -169,9 +139,7 @@ export default function Product() {
               </TabList>
             </Box>
             <TabPanel value="1">
-              <Typography>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </Typography>
+              <Typography>{data.description}</Typography>
             </TabPanel>
             <TabPanel value="2">Item Two</TabPanel>
           </TabContext>

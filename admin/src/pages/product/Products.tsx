@@ -103,7 +103,7 @@ export default function Products() {
                       )
                       .map((row: any) => {
                         const {
-                          id,
+                          _id,
                           title,
                           price,
                           images,
@@ -116,7 +116,7 @@ export default function Products() {
                         return (
                           <TableRow
                             hover
-                            key={id}
+                            key={_id}
                             tabIndex={-1}
                             role="checkbox"
                             selected={isItemSelected}
@@ -139,7 +139,7 @@ export default function Products() {
                                 spacing={2}
                               >
                                 <Avatar alt={title} src={images[0]} />
-                                <Link to="oeirtunfdksjkdnd">
+                                <Link to={`${_id}`}>
                                   <Typography variant="subtitle2" noWrap>
                                     {title}
                                   </Typography>
