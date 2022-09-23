@@ -1,6 +1,6 @@
-import { Product } from "@framework/types";
-import http from "@framework/http";
-import { API_ENDPOINTS } from "@framework/endpoints";
+import { Product } from "../types";
+import http from "../http";
+import { API_ENDPOINTS } from "../endpoints";
 import { useQuery } from "react-query";
 
 export const fetchProduct = async (_slug: string) => {
@@ -11,5 +11,16 @@ export const fetchProduct = async (_slug: string) => {
 export const useProductQuery = (slug: string) => {
 	return useQuery<Product, Error>([API_ENDPOINTS.FETCH_PRODUCT, slug], () =>
 		fetchProduct(slug)
+	);
+};
+
+export const fetchProducts = async () => {
+	const { data } = await http.get(`${API_ENDPOINTS.FETCH_PRODUCTS}`);
+	return data;
+};
+
+export const useProductsQuery = () => {
+	return useQuery<Product, Error>([API_ENDPOINTS.FETCH_PRODUCTS], () =>
+		fetchProducts()
 	);
 };

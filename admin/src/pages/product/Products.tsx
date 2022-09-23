@@ -20,6 +20,7 @@ import { faker } from "@faker-js/faker";
 import { SearchNotFound, MoreMenu, Heading } from "../../components/table";
 import { Page, Icone, ColorPreview, Label } from "../../components/index";
 import { getRandomInt } from "../../utils/helpers";
+import { useProductsQuery } from "../../framework/product/get-product";
 
 const TABLE_HEAD = [
   { id: "name", label: "Name", alignRight: false },
@@ -96,6 +97,9 @@ export default function Products() {
   const [selected, setSelected] = useState<any>([]);
   const [filterName] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { isLoading, data } = useProductsQuery();
+
+  console.log(isLoading, data);
 
   const handleSelectAllClick = (event: any) => {
     if (event.target.checked) {

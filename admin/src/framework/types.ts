@@ -11,17 +11,13 @@ export type Category = {
 
 export type Product = {
   id: number | string;
-  name: string;
-  slug: string;
+  title: string;
   price: number;
-  quantity: number;
   sale_price?: number;
-  image: any;
+  images: any;
   sku?: string;
-  gallery?: any[];
   category?: Category;
   tags: string[];
-  meta?: any[];
+  inStock: boolean;
   description?: string;
-  variations?: object;
 };
